@@ -42,9 +42,10 @@ export default function ClientDetail() {
     dueDate: "",
   });
 
-  const { data: client } = useQuery<Client>({
+  const { data: client, isLoading: clientLoading, isError: clientError } = useQuery<Client>({
     queryKey: ["/api/clients", id],
-    queryFn: () => apiRequest("GET", `/api/clients`).then((r) => r.json()).then((cs: Client[]) => cs.find((c) => c.id === id)),
+    queryFn: () => apiRequest("GET", `/api/clients/${id}`).then((r) => r.json()),
+    enabled: !!id && !isNaN(id),
   });
 
   const { data: periods = [] } = useQuery<Period[]>({
