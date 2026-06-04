@@ -1,16 +1,25 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
-.vite/
 
-# SQLite database files — never commit; exposes demo data at rest
-data.db
-data.db-shm
-data.db-wal
-data.db-journal
+# SQLite databases (local data — do not commit)
+*.db
+*.db-shm
+*.db-wal
 
+# Environment variables — NEVER commit these
 .env
-.env.*
-!.env.example
+.env.local
+.env.production
 
-*.log
+# OS / editor
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
