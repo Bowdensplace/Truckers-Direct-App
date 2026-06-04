@@ -10,6 +10,9 @@ import {
 import { z } from "zod";
 
 export async function registerRoutes(httpServer: Server, app: Express): Promise<Server> {
+  // Health check — always 200, used by Railway
+  app.get("/health", (_req, res) => res.json({ status: "ok" }));
+
   // Protect all /api routes
   app.use("/api", requireAuth);
 
