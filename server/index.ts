@@ -63,6 +63,9 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Trust Railway's proxy so secure cookies work over HTTPS
+  app.set("trust proxy", 1);
+
   // Auth must be set up before routes so session/passport middleware is in place
   setupAuth(app);
 
