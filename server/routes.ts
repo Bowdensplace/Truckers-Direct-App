@@ -40,6 +40,11 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   app.get("/api/clients", (req, res) => {
     res.json(storage.getClients());
   });
+  app.get("/api/clients/:id", (req, res) => {
+    const client = storage.getClient(Number(req.params.id));
+    if (!client) return res.status(404).json({ error: "Client not found" });
+    res.json(client);
+  });
   app.post("/api/clients", (req, res) => {
     const parsed = insertClientSchema.safeParse(req.body);
     if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
