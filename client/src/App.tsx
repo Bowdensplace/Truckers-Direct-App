@@ -22,17 +22,43 @@ export default function App() {
             {/* Public route — login */}
             <Route path="/login" component={LoginPage} />
 
-            {/* Protected routes — require Google auth */}
+            {/* Protected routes — flat list so wouter matches sub-paths correctly */}
+            <Route path="/clients/:clientId/periods/:periodId/:workflow">
+              {(params) => (
+                <ProtectedRoute>
+                  <Layout>
+                    <WorkflowPage />
+                  </Layout>
+                </ProtectedRoute>
+              )}
+            </Route>
+            <Route path="/clients/:clientId">
+              {(params) => (
+                <ProtectedRoute>
+                  <Layout>
+                    <ClientDetail />
+                  </Layout>
+                </ProtectedRoute>
+              )}
+            </Route>
+            <Route path="/search">
+              <ProtectedRoute>
+                <Layout>
+                  <SearchPage />
+                </Layout>
+              </ProtectedRoute>
+            </Route>
             <Route path="/">
               <ProtectedRoute>
                 <Layout>
-                  <Switch>
-                    <Route path="/" component={Dashboard} />
-                    <Route path="/clients/:clientId" component={ClientDetail} />
-                    <Route path="/clients/:clientId/periods/:periodId/:workflow" component={WorkflowPage} />
-                    <Route path="/search" component={SearchPage} />
-                    <Route component={NotFound} />
-                  </Switch>
+                  <Dashboard />
+                </Layout>
+              </ProtectedRoute>
+            </Route>
+            <Route>
+              <ProtectedRoute>
+                <Layout>
+                  <NotFound />
                 </Layout>
               </ProtectedRoute>
             </Route>

@@ -13,8 +13,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   // Health check — always 200, used by Railway
   app.get("/health", (_req, res) => res.json({ status: "ok" }));
 
-  // AUTH TEMPORARILY DISABLED FOR QA
-  // app.use("/api", requireAuth);
+  app.use("/api", requireAuth);
 
   // ─── STAFF ──────────────────────────────────────────────────────────────
   app.get("/api/staff", (req, res) => {
